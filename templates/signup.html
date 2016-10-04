@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sign Up</title>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.light_green-green.min.css" />
     <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
@@ -10,7 +11,7 @@
 
   <style> 
     .demonstracao-card {
-      height: 450px;
+      height: 390px;
     }
 
     .mdl-layout {
@@ -32,9 +33,9 @@
           <span class="mdl-layout-title">Blog!</span>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation">
-            <a href="#" class="mdl-navigation__link mdl-color-text--white">Home</a>
-            <a href="#" class="mdl-navigation__link mdl-color-text--white">Login</a>
-            <a href="#" class="mdl-navigation__link mdl-color-text--white">Sign Up</a>
+            <a href="/" class="mdl-navigation__link mdl-color-text--white">Home</a>
+            <a href="login" class="mdl-navigation__link mdl-color-text--white">Login</a>
+            <a href="signup" class="mdl-navigation__link mdl-color-text--white">Sign Up</a>
         </nav>
         </div>
         
@@ -46,43 +47,36 @@
             <div class="mdl-card__title">
               <h2 class="mdl-card__title-text">Sign Up</h2>
             </div>
-            <div class="mdl-card__actions mdl-card--border">
-              
-              <form action="#">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="username">
-                  <label class="mdl-textfield__label" for="username">Username</label>
-                </div>
-              </form>
-              
-              <form action="#">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="email">
-                  <label class="mdl-textfield__label" for="email">Email</label>
-                </div>
-              </form>
-              
-              <form action="#">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="Password" id="password">
-                  <label class="mdl-textfield__label" for="password">Password</label>
-                </div>
-              </form>
-              
-              <form action="#">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="Password" id="rpassword">
-                  <label class="mdl-textfield__label" for="rpassword">Repeat Password</label>
-                </div>
-              </form>
+              <div class="mdl-card__actions mdl-card--border">
+                
+                <form method="post">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="username" name="username">
+                    <label class="mdl-textfield__label" for="username">Username</label>
+                  </div>
 
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                Sign up
-              </button>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="email" name="email">
+                    <label class="mdl-textfield__label" for="email">Email</label>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="Password" id="password" name="password">
+                    <label class="mdl-textfield__label" for="password">Password</label>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="Password" id="rpassword" name="rpassword">
+                    <label class="mdl-textfield__label" for="rpassword">Repeat Password</label>
+                  </div>
+
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                  Sign up
+                </button>
+              </form>  
             </div>
           </div>
         </center>
-    
       </main>
     </div>     
   </body>

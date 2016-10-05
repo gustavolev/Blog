@@ -30,9 +30,16 @@
         </div>
         
       </header>
-      <main class="mdl-layout__content">
-		
-
+      <main class="mdl-layout">
+        <center>
+          
+          {% if logado == True %}
+          Usuário está logado!
+          {% else %}
+          Usuário não está logado!
+          {% endif %}
+          
+        </center>
       </main>
     </div>     
   </body>

@@ -51,11 +51,27 @@ class Handler(webapp2.RequestHandler):
 
 class MainHandler(Handler):
   def get(self):
-    self.render("main.html")
+    user_id = self.request.cookies.get("user_id")
+    if user_id:
+      self.render("main.html", logado = True)
+    else:
+      self.render("main.html", logado = False)
 
 class LoginHandler(Handler):
   def get(self):
     self.render("login.html")
+
+  def post(self):
+    username = self.request.get("username")
+    password = self.request.get("password")
+    user = User.query(User.username == username).get()
+    if user and user.password == password:
+      # Vai entrar aqui se o usuário existir
+      self.response.headers.add_header('Set-Cookie', 'user_id=%s; Path=/' % str(username))
+      self.redirect("/")
+    else:
+      # Vai entrar aqui se o usuário não existir
+      self.render("login.html", error = True)
 
 class SignupHandler(Handler):
   def get(self):

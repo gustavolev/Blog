@@ -11,7 +11,7 @@
   <style> 
 
     .demonstracao-card {
-      height: 300px;
+      height: 260px;
     }
 
     .mdl-layout {
@@ -49,27 +49,27 @@
 	          </div>
 	          <div class="mdl-card__actions mdl-card--border">
 	              
-	            <form action="#">
+	            <form method="post">
 	              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 	                <input class="mdl-textfield__input" type="text" id="username" name="username">
 	                <label class="mdl-textfield__label" for="username">Username</label>
+                  {% if error == True %}
+                  <span class="mdl-textfield__error" style="visibility: visible">Usuário ou senha inválidos!</span>
+                  {% endif %}
 	              </div>
-	            </form>
-	              
-	            <form action="#">
+
 	              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 	                <input class="mdl-textfield__input" type="Password" id="password" name="password">
 	                <label class="mdl-textfield__label" for="password">Password</label>
+                  {% if error == True %}
+                  <span class="mdl-textfield__error" style="visibility: visible">Usuário ou senha inválidos!</span>
+                  {% endif %}
 	              </div>
-	            </form>
-	              
-	            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-	              Login
-	            </button>
-
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                Sign Up
-              </button>             
+	     
+    	            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+    	              Login
+    	            </button>
+              </form>            
 	          </div>
 	        </div>	
 	      </center>

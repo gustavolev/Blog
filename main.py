@@ -18,8 +18,42 @@
 import webapp2
 import os
 import jinja2
+import hmac
+import random
+import string
+import hashlib
 
 from google.appengine.ext import ndb
+
+# Hashing de senha
+def make_salt():
+    return ''.join(random.choice(string.letters) for x in xrange(5))
+
+def make_pw_hash(name, pw, salt = None):
+    if not salt:
+      salt = make_salt()
+    h = hashlib.sha256(name + pw + salt).hexdigest()
+    return '%s,%s' % (h, salt)
+
+def valid_pw(name, pw, h):
+    salt = h.split(',')[1]
+    if make_pw_hash(name, pw, salt) == h:
+        return True
+    return False
+
+# Criptografia de cookie
+SECRET = "Meu segredo..."
+
+def hash_str(s):
+    return hmac.new(SECRET, s).hexdigest()
+
+def make_secure_val(s):
+    return "%s|%s" % (s, hash_str(s))
+
+def check_secure_val(h):
+    val = h.split('|')[0]
+    if h == make_secure_val(val):
+        return val
 
 # Jinja2 Directory Configuration
 
@@ -52,7 +86,7 @@ class Handler(webapp2.RequestHandler):
 class MainHandler(Handler):
   def get(self):
     user_id = self.request.cookies.get("user_id")
-    if user_id:
+    if user_id and check_secure_val(user_id):
       self.render("main.html", logado = True)
     else:
       self.render("main.html", logado = False)
@@ -67,7 +101,7 @@ class LoginHandler(Handler):
     user = User.query(User.username == username).get()
     if user and user.password == password:
       # Vai entrar aqui se o usuário existir
-      self.response.headers.add_header('Set-Cookie', 'user_id=%s; Path=/' % str(username))
+      self.response.headers.add_header('Set-Cookie', 'user_id=%s; Path=/' % make_secure_val(str(username)))
       self.redirect("/")
     else:
       # Vai entrar aqui se o usuário não existir
@@ -81,7 +115,7 @@ class SignupHandler(Handler):
     username = self.request.get("username")
     email = self.request.get("email")
     password = self.request.get("password")
-    user = User(username = username, email = email, password = password)
+    user = User(username = username, email = email, password = make_pw_hash(password))
     user.put()
 
 

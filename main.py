@@ -99,7 +99,7 @@ class LoginHandler(Handler):
     username = self.request.get("username")
     password = self.request.get("password")
     user = User.query(User.username == username).get()
-    if user and user.password == password:
+    if user and valid_pw(username, password, user.password):
       # Vai entrar aqui se o usuário existir
       self.response.headers.add_header('Set-Cookie', 'user_id=%s; Path=/' % make_secure_val(str(username)))
       self.redirect("/")
@@ -115,12 +115,17 @@ class SignupHandler(Handler):
     username = self.request.get("username")
     email = self.request.get("email")
     password = self.request.get("password")
-    user = User(username = username, email = email, password = make_pw_hash(password))
+    user = User(username = username, email = email, password = make_pw_hash(username, password))
     user.put()
+    self.redirect("/login")
 
+class PostHandler(Handler):
+  def get(self):
+    self.render("post.html")
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/login', LoginHandler),
-  ('/signup', SignupHandler)
+  ('/signup', SignupHandler),
+  ('/post', PostHandler)
 ])

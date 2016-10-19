@@ -2,16 +2,30 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Post</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.light_green-green.min.css"/>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.light_green-green.min.css" />
     <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
   </head>
 
   <style> 
+    .demonstracao-card {
+      height: 600px;
+      width: 1000px;
+    }
+
   	.fundo{
       background: url(http://pre06.deviantart.net/3825/th/pre/f/2013/054/1/c/wallpaper_street__by_xgomiitaj-d5vy75h.jpg) center / cover;
+    }
+
+    .mdl-layout {
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mdl-textfield{
+      width: 950px;
     }
 
   </style>
@@ -28,17 +42,29 @@
             <a href="login" class="mdl-navigation__link mdl-color-text--white">Login</a>
             <a href="signup" class="mdl-navigation__link mdl-color-text--white">Sign Up</a>
         </nav>
-        </div>        
+        </div>
+        
       </header>
- 
       <main class="mdl-layout">
         <center>
           
-          {% if logado == True %}
-          Usuário está logado!
-          {% else %}
-          Usuário não está logado!
-          {% endif %}
+          <form action="#">
+            <div class="mdl-card mdl-shadow--16dp demonstracao-card">
+              <div class="mdl-card_title">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="sample3">
+                  <label class="mdl-textfield__label" for="sample3">Title...</label>
+                </div>
+              </div>
+
+              <div class="mdl-card__actions mdl-card--border">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <textarea class="mdl-textfield__input" type="text" rows="27" id="sample5" ></textarea>
+                  <label class="mdl-textfield__label" for="sample5">Text...</label>
+                </div>
+              </div>
+            </div>
+           </form>
           
         </center>
       </main>

@@ -68,6 +68,12 @@ class User(ndb.Model):
   password = ndb.StringProperty(required = True)
   created_at = ndb.DateTimeProperty(auto_now_add = True)
 
+class Post(ndb.Model):
+  title = ndb.StringProperty(required = True)
+  text = ndb.StringProperty(required = True)
+
+    
+
 # Default Handler
 
 class Handler(webapp2.RequestHandler):
@@ -86,10 +92,11 @@ class Handler(webapp2.RequestHandler):
 class MainHandler(Handler):
   def get(self):
     user_id = self.request.cookies.get("user_id")
+    posts = Post.query().fetch()
     if user_id and check_secure_val(user_id):
-      self.render("main.html", logado = True)
+      self.render("main.html", logado = True, posts = posts)
     else:
-      self.render("main.html", logado = False)
+      self.render("main.html", logado = False, posts = posts)
 
 class LoginHandler(Handler):
   def get(self):
@@ -122,6 +129,14 @@ class SignupHandler(Handler):
 class PostHandler(Handler):
   def get(self):
     self.render("post.html")
+
+  def post(self):
+    title = self.request.get("title")
+    text = self.request.get("text")
+    post = Post(title = title, text = text)
+    post.put()
+    self.redirect("/")
+
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),

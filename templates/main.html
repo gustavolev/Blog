@@ -14,21 +14,26 @@
       background: url(http://pre06.deviantart.net/3825/th/pre/f/2013/054/1/c/wallpaper_street__by_xgomiitaj-d5vy75h.jpg) center / cover;
     }
 
+    .demonstracao-card {
+      width: 1000px;
+    }
+
+
   </style>
 
   <body>
     <div class="fundo mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header class="mdl-layout__header mdl-color-text--white mdl-layout__header--transparent">
         <div class="mdl-layout__header-row">
-          
           <span class="mdl-layout-title">Blog!</span>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation">
             <a href="/" class="mdl-navigation__link mdl-color-text--white">Home</a>
             <a href="login" class="mdl-navigation__link mdl-color-text--white">Login</a>
             <a href="signup" class="mdl-navigation__link mdl-color-text--white">Sign Up</a>
-        </nav>
+          </nav>
         </div>        
+  
       </header>
  
       <main class="mdl-layout">
@@ -39,6 +44,18 @@
           {% else %}
           Usuário não está logado!
           {% endif %}
+        {% for post in posts %}
+        <div class="mdl-card demonstracao-card mdl-shadow--16dp">
+          <div class="mdl-card__title">
+            <h5>{{post.title}}</h5>
+          </div>
+          <div class="mdl-card__actions mdl-card--border" align="left">
+
+            <h5>{{post.text}}</h5>
+          </div>
+        </div>
+        <br>
+        {% endfor %}
           
         </center>
       </main>

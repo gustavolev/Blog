@@ -69,8 +69,10 @@ class User(ndb.Model):
   created_at = ndb.DateTimeProperty(auto_now_add = True)
 
 class Post(ndb.Model):
+  username = ndb.StringProperty(required = True)
   title = ndb.StringProperty(required = True)
-  text = ndb.StringProperty(required = True)
+  text = ndb.TextProperty(required = True)
+  created_at = ndb.DateTimeProperty(auto_now_add = True)
 
     
 
@@ -92,7 +94,7 @@ class Handler(webapp2.RequestHandler):
 class MainHandler(Handler):
   def get(self):
     user_id = self.request.cookies.get("user_id")
-    posts = Post.query().fetch()
+    posts = Post.query().order(-Post.created_at).fetch()
     if user_id and check_secure_val(user_id):
       self.render("main.html", logado = True, posts = posts)
     else:
@@ -108,6 +110,7 @@ class LoginHandler(Handler):
     user = User.query(User.username == username).get()
     if user and valid_pw(username, password, user.password):
       # Vai entrar aqui se o usuário existir
+      self.response.headers.add_header('Set-Cookie', 'name=%s; Path=/' % str(username))
       self.response.headers.add_header('Set-Cookie', 'user_id=%s; Path=/' % make_secure_val(str(username)))
       self.redirect("/")
     else:
@@ -128,12 +131,17 @@ class SignupHandler(Handler):
 
 class PostHandler(Handler):
   def get(self):
-    self.render("post.html")
+    user_id = self.request.cookies.get("user_id")
+    if(user_id):
+      self.render("post.html", logado = True)
+    else:
+      self.render("login.html", logado = False)
 
   def post(self):
+    username = self.request.cookies.get("name")
     title = self.request.get("title")
     text = self.request.get("text")
-    post = Post(title = title, text = text)
+    post = Post(title = title, text = text, username = username)
     post.put()
     self.redirect("/")
 

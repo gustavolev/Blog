@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Post</title>
+    <title>Postar</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.light_green-green.min.css" />
@@ -26,8 +26,8 @@
 
     .mdl-textfield{
       width: 950px;
+      resize: none;
     }
-
   </style>
 
   <body>
@@ -38,9 +38,15 @@
           <span class="mdl-layout-title">Blog!</span>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation">
-            <a href="/" class="mdl-navigation__link mdl-color-text--white">Home</a>
-            <a href="login" class="mdl-navigation__link mdl-color-text--white">Login</a>
-            <a href="signup" class="mdl-navigation__link mdl-color-text--white">Sign Up</a>
+            {% if logado == False%}
+              <a href="/" class="mdl-navigation__link mdl-color-text--white">Início</a>
+              <a href="login" class="mdl-navigation__link mdl-color-text--white">Entrar</a>
+              <a href="signup" class="mdl-navigation__link mdl-color-text--white">Cadastrar</a>
+            {% else %}
+              <a href="/" class="mdl-navigation__link mdl-color-text--white">Início</a>
+              <a href="post" class="mdl-navigation__link mdl-color-text--white">Postar</a>
+              <a href="logout" class="mdl-navigation__link mdl-color-text--white">Sair</a>
+            {% endif %}  
         </nav>
         </div>
         
@@ -53,19 +59,19 @@
               <div class="mdl-card_title">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="title" name="title">
-                  <label class="mdl-textfield__label" for="title">Title...</label>
+                  <label class="mdl-textfield__label" for="title">Título...</label>
                 </div>
               </div>
 
               <div class="mdl-card__actions mdl-card--border">
                 <div class="mdl-textfield mdl-js-textfield">
-                  <textarea class="mdl-textfield__input" type="text" rows="25" id="text" name="text" ></textarea>
-                  <label class="mdl-textfield__label" for="text">Text...</label>
+                  <textarea class="mdl-textfield__input mdl-textfield" type="text" rows="24" id="text" name="text" ></textarea>
+                  <label class="mdl-textfield__label" for="text">Texto...</label>
                 </div>
               </div>
 
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                Post
+                Postar
               </button>
             </div>
            </form>

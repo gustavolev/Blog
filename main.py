@@ -145,10 +145,25 @@ class PostHandler(Handler):
     post.put()
     self.redirect("/")
 
+class LogoutHandler(Handler):
+  def get(self):
+    user_id = self.request.cookies.get("user_id")
+    if(user_id):
+      self.render("logout.html", logado = True)
+    else:
+      self.render("main.html", logado = False)
+
+  def post(self):
+    self.response.delete_cookie('user_id')
+    self.response.delete_cookie('name')
+    self.redirect("/")
+ 
+    
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/login', LoginHandler),
   ('/signup', SignupHandler),
-  ('/post', PostHandler)
+  ('/post', PostHandler),
+  ('/logout', LogoutHandler)
 ])
